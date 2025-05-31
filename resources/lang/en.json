@@ -33,5 +33,12 @@
     "Search...": "Search...",
     "Change permission": "Change permission",
     "Delete permission": "Delete permission",
-    "New permission": "New permission"
+    "New permission": "New permission",
+    "Create Permission": "Create Permission",
+    "Permission Name": "Permission Name",
+    "Enter the name of the permission": "Enter the name of the permission",
+    "Save": "Save",
+    "Rows per page": "Rows per page",
+    "No results found": "No results found",
+    "Edit permission": "Edit permission"
 }

@@ -76,7 +76,7 @@ const confirm = (permission_id) => {
 <template>
     <Head :title="title"></Head>
 
-    <DefaultLayout :title="title" icon="mdi-file-document-outline">
+    <DefaultLayout :title="title" icon="mdi-shield-key">
         <q-page class="q-pa-none">
             <div class="page-container">
                 <div class="body-panel">
@@ -88,7 +88,7 @@ const confirm = (permission_id) => {
                             separator="cell"
                             :no-data-label="__('No data available')"
                             :no-results-label="__('No results found')"
-                            :loading-label="__('Loading')"
+                            :loading-label="__('Loading...')"
                             :rows="permissions"
                             :columns="columns"
                             row-key="id"
@@ -119,9 +119,8 @@ const confirm = (permission_id) => {
                     </div>
                 </div>
                 <div class="footer-panel">
-                    <q-btn color="primary" label="Табло" flat icon="mdi-menu-left" @click="router.get(route('admin.index'))" />
-
-                    <q-btn color="primary" label="Ново право" icon="mdi-key-plus" @click="router.get(route('permissions.create'))" />
+                    <q-btn color="primary" :label="__('Dashboard')" flat icon="mdi-menu-left" @click="router.get(route('admin.index'))" />
+                    <q-btn color="primary" :label="__('New permission')" icon="mdi-key-plus" @click="router.get(route('permissions.create'))" />
                 </div>
             </div>
         </q-page>
