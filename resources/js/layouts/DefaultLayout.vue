@@ -28,7 +28,7 @@ const toggleLeftDrawer = () => {
 
                 <q-toolbar-title class="flex-none select-none">
                     <q-icon name="mdi-at" size="md"></q-icon>
-                    АВАЛОН
+                    {{ $page.props.app_name }}
                 </q-toolbar-title>
 
                 <q-separator dark vertical inset />
@@ -67,7 +67,7 @@ const toggleLeftDrawer = () => {
                         active-class="bg-blue-1"
                     >
                         <q-item-section avatar>
-                            <q-icon color="primary" name="mdi-view-dashboard-outline" />
+                            <q-icon color="primary" name="mdi-view-dashboard" />
                         </q-item-section>
                         <q-item-section>{{ __('Dashboard') }}</q-item-section>
                     </q-item>
@@ -82,7 +82,7 @@ const toggleLeftDrawer = () => {
                         active-class="bg-blue-1"
                     >
                         <q-item-section avatar>
-                            <q-icon color="primary" name="mdi-view-dashboard-outline" />
+                            <q-icon color="primary" name="mdi-view-dashboard" />
                         </q-item-section>
                         <q-item-section>{{ __('Dashboard') }}</q-item-section>
                     </q-item>
@@ -100,7 +100,7 @@ const toggleLeftDrawer = () => {
                         :active="route().current('users.index')"
                     >
                         <q-item-section avatar>
-                            <q-icon color="primary" name="mdi-account-multiple-outline" />
+                            <q-icon color="primary" name="mdi-account-multiple" />
                         </q-item-section>
                         <q-item-section>{{ __('Users') }}</q-item-section>
                     </q-item>
@@ -116,7 +116,7 @@ const toggleLeftDrawer = () => {
                         :active="route().current('roles.index')"
                     >
                         <q-item-section avatar>
-                            <q-icon color="primary" name="mdi-account-group-outline" />
+                            <q-icon color="primary" name="mdi-account-group" />
                         </q-item-section>
                         <q-item-section>{{ __('Roles') }}</q-item-section>
                     </q-item>
@@ -132,7 +132,7 @@ const toggleLeftDrawer = () => {
                         :active="route().current('permissions.index')"
                     >
                         <q-item-section avatar>
-                            <q-icon color="primary" name="mdi-shield-key-outline" />
+                            <q-icon color="primary" name="mdi-shield-key" />
                         </q-item-section>
                         <q-item-section>{{ __('Permissions') }}</q-item-section>
                     </q-item>
@@ -168,7 +168,7 @@ const toggleLeftDrawer = () => {
                         v-for="role in $page.props.auth.user.roles"
                         :key="role"
                         class="text-subtitle1 text-title text-left"
-                        :class="role === 'admin' ? 'text-red-8' : role === 'service' ? 'text-orange-8' : 'text-gray-10'"
+                        :class="role === 'admin' ? 'text-red-8' : 'text-gray-10'"
                         >{{ role }}</q-toolbar-title
                     >
                     <q-separator vertical />

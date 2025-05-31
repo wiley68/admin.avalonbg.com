@@ -9,11 +9,11 @@ const title = __('Administrative panel');
 <template>
     <Head :title="__('Home')"></Head>
 
-    <DefaultLayout :title="title" icon="mdi-file-chart-outline">
+    <DefaultLayout :title="title" icon="mdi-view-dashboard">
         <q-page class="flex-center flex">
             <q-card class="q-pa-md">
                 <q-card-section>
-                    <div class="text-h6">{{ __('Administrative panel') }}</div>
+                    <div class="text-h6">{{ title }}</div>
                 </q-card-section>
             </q-card>
         </q-page>
