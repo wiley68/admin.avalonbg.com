@@ -28,5 +28,5 @@ function switchLocale(locale: string) {
 
 <template>
     <q-select v-model="selectedLocale" :options="localeOptions" @update:model-value="switchLocale" dense outlined
-        emit-value map-options label="Language" style="width: 140px" />
+        emit-value map-options :label="__('Language')" style="width: 140px" />
 </template>

@@ -22,9 +22,9 @@ const { theme } = useAppearance()
         <div class="column absolute-full flex flex-center" style="user-select: none">
             <div class="row items-center justify-end absolute-top q-pa-md">
                 <q-btn-toggle v-model="theme" :options="[
-                    { label: 'Light', value: 'light' },
-                    { label: 'Dark', value: 'dark' },
-                    { label: 'Systematic', value: 'system' }
+                    { label: __('Light'), value: 'light' },
+                    { label: __('Dark'), value: 'dark' },
+                    { label: __('Systematic'), value: 'system' }
                 ]" toggle-color="primary" push ripple />
 
                 <LanguageSwitcher class="q-ml-md" />

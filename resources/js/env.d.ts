@@ -9,3 +9,27 @@ interface ImportMetaEnv {
 interface ImportMeta {
     readonly env: ImportMetaEnv;
 }
+
+export {};
+
+declare global {
+    interface Window {
+        _translations: Record<string, string>;
+    }
+}
+
+declare global {
+    interface Window {
+        currentLocale: string;
+    }
+}
+
+import 'vue';
+
+declare module '@vue/runtime-core' {
+    interface ComponentCustomProperties {
+        __: (key: string, replacements?: Record<string, string>) => string;
+    }
+}
+
+export {};
