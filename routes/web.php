@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\App\DashboardController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,7 @@ Route::post('/set-locale/{locale}', function ($locale) {
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+    Route::resource('/permissions', PermissionController::class);
 });
 
 Route::middleware(['auth', 'exclude.admin'])->group(function () {
