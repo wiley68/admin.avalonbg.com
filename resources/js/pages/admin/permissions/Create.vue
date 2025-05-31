@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { __ } from '@/composables/useTranslate';
-import DefaultLayout from '@/Layouts/DefaultLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
