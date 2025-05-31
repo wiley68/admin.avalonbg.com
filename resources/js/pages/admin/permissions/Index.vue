@@ -40,14 +40,13 @@ const confirm = (permission_id) => {
     $q.dialog({
         title: __('Confirm'),
         message: __('Do you want to delete the permission?'),
-        cancel: true,
         persistent: true,
         ok: {
             label: 'Yes',
             color: 'primary',
         },
         cancel: {
-            label: 'Cancel',
+            label: __('Cancel'),
             color: 'grey-1',
             textColor: 'grey-10',
             flat: true,
