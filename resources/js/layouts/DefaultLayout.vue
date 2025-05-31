@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import OverlayLoader from '@/components/OverlayLoader.vue';
 import { usePermission } from '@/composables/permissions';
 import { router } from '@inertiajs/vue3';
 import { ref } from 'vue';
@@ -18,7 +17,6 @@ const toggleLeftDrawer = () => {
 </script>
 
 <template>
-    <OverlayLoader></OverlayLoader>
     <q-layout view="hHh lpR fFf">
         <q-header bordered class="bg-primary text-white select-none">
             <q-toolbar>

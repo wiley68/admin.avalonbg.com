@@ -16,12 +16,25 @@ class PermissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $permissions = PermissionResource::collection(Permission::all());
+        $query = Permission::query();
+
+        if ($search = $request->input('search')) {
+            $query->where('name', 'like', "%$search%");
+        }
+
+        if ($sort = $request->input('sort')) {
+            $direction = $request->input('direction', 'asc');
+            $query->orderBy($sort, $direction);
+        }
+
+        $permissions = $query->paginate($request->input('per_page', 100));
 
         return Inertia::render('admin/permissions/Index', [
-            'permissions' => $permissions,
+            'permissions' => PermissionResource::collection($permissions)->additional([
+                'total' => $permissions->total(),
+            ]),
         ]);
     }
 
