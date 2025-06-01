@@ -222,7 +222,7 @@ const toggleLeftDrawer = () => {
 }
 
 .scrollable-content {
-    padding: 16px;
+    padding: 0px;
 }
 
 .q-field__messages > div {

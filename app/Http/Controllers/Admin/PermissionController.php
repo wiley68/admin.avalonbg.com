@@ -29,7 +29,7 @@ class PermissionController extends Controller
             $query->orderBy($sort, $direction);
         }
 
-        $permissions = $query->paginate($request->input('per_page', 100));
+        $permissions = $query->paginate($request->input('per_page', 20));
 
         return Inertia::render('admin/permissions/Index', [
             'permissions' => PermissionResource::collection($permissions)->additional([
