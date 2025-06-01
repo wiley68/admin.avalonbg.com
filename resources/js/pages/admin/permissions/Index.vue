@@ -3,15 +3,15 @@ import Table from '@/components/Table.vue';
 import { __ } from '@/composables/useTranslate';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
-import debounce from 'lodash/debounce';
+import { debounce } from 'lodash';
 import { useQuasar } from 'quasar';
 import { onMounted, ref, watch } from 'vue';
 
 const $q = useQuasar();
-const permissions = ref([]);
+const permissions = ref<any[]>([]);
 const loading = ref(false);
 const page = ref(1);
-const perPage = 20;
+const perPage = 40;
 const total = ref(0);
 const sortBy = ref('id');
 const sortDesc = ref(false);
@@ -42,27 +42,32 @@ function fetchPermissions(reset = false) {
             direction: sortDesc.value ? 'desc' : 'asc',
             search: search.value,
         },
-        onSuccess: (page) => {
-            const newData = page.props.permissions.data;
-            total.value = page.props.permissions.total;
+        onSuccess: (response) => {
+            const permissionsData = response.props.permissions as { data: any[]; total: number };
+            if (permissionsData) {
+                const newData = permissionsData.data;
+                total.value = permissionsData.total;
 
-            if (reset) {
-                permissions.value = newData;
-            } else {
-                permissions.value = [...permissions.value, ...newData];
+                if (reset) {
+                    permissions.value = newData;
+                } else {
+                    permissions.value = [...permissions.value, ...newData];
+                }
+
+                if (permissions.value.length >= total.value) {
+                    finished.value = true;
+                } else {
+                    finished.value = false;
+                }
             }
-
-            if (permissions.value.length >= total.value) {
-                finished.value = true;
-            }
-
             loading.value = false;
         },
     });
 }
 
-const onScroll = ({ to }: { to: number }) => {
-    if (to === permissions.value.length - 1 && !finished.value) {
+const onScroll = (to: number) => {
+    const buffer = 5;
+    if (to >= permissions.value.length - buffer && !finished.value && !loading.value) {
         page.value++;
         fetchPermissions();
     }
@@ -92,15 +97,15 @@ onMounted(() => {
     fetchPermissions(true);
 });
 
-const confirm = (permission_id: number) => {
+const confirm = (permission_id: string) => {
     $q.dialog({
         title: __('Confirm'),
         message: __('Do you want to delete the permission?'),
         persistent: true,
-        ok: { label: 'Yes', color: 'primary' },
+        ok: { label: __('Yes'), color: 'primary' },
         cancel: { label: __('Cancel'), color: 'grey-1', textColor: 'grey-10', flat: true },
     }).onOk(() => {
-        router.delete(route('permissions.destroy', permission_id), {
+        router.delete(route('permissions.destroy', Number(permission_id)), {
             onSuccess: () => {
                 page.value = 1;
                 finished.value = false;
