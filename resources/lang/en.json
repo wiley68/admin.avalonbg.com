@@ -40,5 +40,10 @@
     "Save": "Save",
     "Rows per page": "Rows per page",
     "No results found": "No results found",
-    "Edit permission": "Edit permission"
+    "Edit permission": "Edit permission",
+    "Sorted by": "Sorted by",
+    "desc": "descending",
+    "asc": "ascending",
+    "Total records": "Total records",
+    "Search ...": "Search ..."
 }

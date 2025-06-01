@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Table from '@/components/Table.vue';
 import { __ } from '@/composables/useTranslate';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
@@ -18,8 +19,8 @@ const search = ref('');
 const finished = ref(false);
 
 const columns = [
-    { name: 'id', required: true, label: '№', textAlign: 'left', field: 'id', width: '80px', sortable: true },
-    { name: 'name', textAlign: 'left', label: __('Name'), field: 'name', width: '100%', sortable: true },
+    { name: 'id', label: '№', textAlign: 'left', field: 'id', width: '80px', sortable: true },
+    { name: 'name', label: __('Name'), textAlign: 'left', field: 'name', width: '100%', sortable: true },
     { name: 'actions', label: __('Actions'), textAlign: 'left', field: 'actions', width: '120px', sortable: false },
 ];
 
@@ -124,70 +125,19 @@ const confirm = (permission_id: number) => {
         <q-page class="q-pa-none">
             <div class="page-container">
                 <div class="body-panel q-pa-md">
-                    <div class="rounded-borders shadow-4">
-                        <div class="q-pa-sm row items-center justify-between">
-                            <div class="col-auto">
-                                <div class="text-h5">{{ title }}</div>
-                                <div class="text-caption">
-                                    {{ __('Sorted by') }}: <strong>{{ sortBy }}</strong> ({{ sortDesc ? 'desc' : 'asc' }}) | {{ __('Total') }}:
-                                    <strong>{{ total }}</strong>
-                                </div>
-                            </div>
-                            <div class="col-auto" style="max-width: 50%">
-                                <q-input v-model="search" :label="__('Search ...')" debounce="500" clearable>
-                                    <template #append>
-                                        <q-icon name="search" />
-                                    </template>
-                                </q-input>
-                            </div>
-                        </div>
-
-                        <div class="q-pa-sm">
-                            <q-markup-table flat class="q-mb-none">
-                                <thead>
-                                    <tr>
-                                        <th
-                                            v-for="col in columns"
-                                            :key="col.field"
-                                            :style="`width: ${col.width}; text-align: ${col.textAlign}; cursor: ${col.sortable ? 'pointer' : 'default'};`"
-                                            @click="col.sortable && onSort(col.field)"
-                                        >
-                                            {{ col.label }}
-                                            <q-icon :name="sortBy === col.field ? (sortDesc ? 'mdi-arrow-down' : 'mdi-arrow-up') : ''" size="xs" />
-                                        </th>
-                                    </tr>
-                                </thead>
-                            </q-markup-table>
-
-                            <q-virtual-scroll
-                                :items="permissions"
-                                :virtual-scroll-item-size="48"
-                                :items-per-page="perPage"
-                                @virtual-scroll="onScroll"
-                                class="scrollable-content"
-                                style="height: calc(100vh - 310px)"
-                            >
-                                <template #default="{ item: row }">
-                                    <div class="row q-pa-sm items-center">
-                                        <div class="col-auto" style="width: 80px">{{ row.id }}</div>
-                                        <div class="col text-left">{{ row.name }}</div>
-                                        <div class="col-auto" style="width: 120px">
-                                            <q-btn
-                                                icon="mdi-pencil-outline"
-                                                color="primary"
-                                                dense
-                                                flat
-                                                rounded
-                                                @click="router.get(route('permissions.edit', row.id))"
-                                            />
-                                            <q-btn icon="mdi-delete-outline" color="negative" dense flat rounded @click="confirm(row.id)" />
-                                        </div>
-                                    </div>
-                                    <q-separator />
-                                </template>
-                            </q-virtual-scroll>
-                        </div>
-                    </div>
+                    <Table
+                        v-model:search="search"
+                        :title="title"
+                        :sortBy="sortBy"
+                        :sortDesc="sortDesc"
+                        :total="total"
+                        :columns="columns"
+                        :items="permissions"
+                        :perPage="perPage"
+                        @sort="onSort"
+                        @scroll="onScroll"
+                        @confirm="confirm"
+                    ></Table>
                 </div>
 
                 <div class="footer-panel q-pa-sm">
